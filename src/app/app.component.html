@@ -1,19 +1,8 @@
 <h1 class="text-center">HELLO WORLD</h1>
 <header>
-    <nav class="container col">
-        <button class="btn btn-primary mx-3" (click)="setOption(1, true)">OPTION 1</button>
-        <button class="btn btn-primary mx-3" (click)="setOption(2, false)">OPTION 2</button>
-        <button class="btn btn-primary mx-3" (click)="setOption(3, false)">OPTION 3</button>
-    </nav>
-
-    <input type="text" [ngClass]="{'form-control': band}" id="casilla"> <label for="casilla">Change style</label>
+    <app-navigation-bar></app-navigation-bar>
 </header>
 
-<main class="container col text-right" [ngSwitch]="currentOption">
-    <div *ngSwitchCase="1">uno</div>
-    <div *ngSwitchCase="2">dos</div>
-    <div *ngSwitchCase="3">tres</div>
-</main>
 
 
 <router-outlet></router-outlet>

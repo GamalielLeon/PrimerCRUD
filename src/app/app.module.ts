@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { CatalogEmployeesComponent } from './components/catalog-employees/catalog-employees.component';
 import { CatalogCountriesComponent } from './components/catalog-countries/catalog-countries.component';
 import { CatalogOfficesComponent } from './components/catalog-offices/catalog-offices.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CatalogEmployeesComponent,
     CatalogCountriesComponent,
-    CatalogOfficesComponent
+    CatalogOfficesComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,

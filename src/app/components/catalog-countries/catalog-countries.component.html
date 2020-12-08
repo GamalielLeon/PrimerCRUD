@@ -1,21 +1,46 @@
+<h2 class="catalog-title">CIUDADES</h2>
+
 <section class="container">
     <table class="table table-hover text-center align-middle table-responsive">
         <thead>
             <tr>
-                <th scope="col">City name</th>
+                <th scope="col">Nombre de la ciudad</th>
                 <th scope="col">
-                    <button class="btn btn-outline-primary mx-3" (click)="addCity()"> <span class="far fa-edit"></span> ADD </button>
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formCities">
+                        <span class="far fa-edit"></span> Agregar ciudad
+                    </button>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="align-self-center" *ngFor="let city of cities; let i=index">
+            <tr *ngFor="let city of cities; let i=index" class="align-self-center">
                 <td>{{city}}</td>
                 <td>
-                    <button class="btn btn-outline-success mx-3" (click)="editCity(i)"> <span class="far fa-edit"></span> EDIT </button>
-                    <button class="btn btn-outline-danger" (click)="deleteCity(i)"> <span class="fas fa-trash"></span> DELETE </button>
+                    <button class="btn btn-outline-success border-2 mx-3" (click)="editCity(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-danger border-2" (click)="deleteCity(i)"> <span class="fas fa-trash"></span> Eliminar </button>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="formCities" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="formCitiesTitle">Agregar nueva ciudad</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="cityName" class="form-label">Nombre de la ciudad</label>
+                            <input type="text" class="form-control" id="cityName">
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="addCity()">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

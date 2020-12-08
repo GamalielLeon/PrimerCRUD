@@ -13,6 +13,7 @@ export class CatalogCountriesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Methods
   addCity(): void{
     console.log('add city');
   }
@@ -25,4 +26,7 @@ export class CatalogCountriesComponent implements OnInit {
     console.log(index);
   }
 
+  // Setters
+
+  // Getters
 }

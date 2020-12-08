@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catalog-countries.component.css']
 })
 export class CatalogCountriesComponent implements OnInit {
+  cities: string[] = ['city 1', 'city 2', 'city 3'];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  addCity(): void{
+    console.log('add city');
+  }
+
+  editCity(index: number): void{
+    console.log(index);
+  }
+
+  deleteCity(index: number): void{
+    console.log(index);
   }
 
 }

@@ -1,1 +1,21 @@
-<p>catalog-countries works!</p>
+<section class="container">
+    <table class="table table-hover text-center align-middle table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">City name</th>
+                <th scope="col">
+                    <button class="btn btn-outline-primary mx-3" (click)="addCity()"> <span class="far fa-edit"></span> ADD </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="align-self-center" *ngFor="let city of cities; let i=index">
+                <td>{{city}}</td>
+                <td>
+                    <button class="btn btn-outline-success mx-3" (click)="editCity(i)"> <span class="far fa-edit"></span> EDIT </button>
+                    <button class="btn btn-outline-danger" (click)="deleteCity(i)"> <span class="fas fa-trash"></span> DELETE </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

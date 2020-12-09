@@ -32,12 +32,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form [formGroup]="formCity" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="cityName" class="form-label">Nombre de la ciudad (*)</label>
-                            <input type="text" class="form-control" id="cityName">
+                            <input type="text" class="form-control" id="cityName" placeholder="Mexico" formControlName="cityName">
                         </div>
-                        <button type="button" class="btn btn-primary" (click)="addCity()">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
             </div>

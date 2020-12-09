@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { CatalogEmployeesComponent } from './components/catalog-employees/catalog-employees.component';
 import { CatalogCountriesComponent } from './components/catalog-countries/catalog-countries.component';
@@ -18,7 +19,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -18,7 +18,7 @@
             <tr *ngFor="let office of offices; let i=index" class="align-self-center">
                 <td>{{office.name}}</td>
                 <td>{{office.phoneNumber}}</td>
-                <td>{{office.direction}}</td>
+                <td>{{office.address}}</td>
                 <td>
                     <button class="btn btn-outline-success border-2" (click)="editOffice(i)"> <span class="far fa-edit"></span> Editar </button>
                     <button class="btn btn-outline-danger border-2" (click)="deleteOffice(i)"> <span class="fas fa-trash"></span> Eliminar </button>

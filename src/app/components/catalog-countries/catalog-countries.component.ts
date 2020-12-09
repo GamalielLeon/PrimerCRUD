@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CatalogsDataService } from '../../services/catalogs-data.service';
 
 @Component({
   selector: 'app-catalog-countries',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class CatalogCountriesComponent implements OnInit {
   cities: string[] = ['city 1', 'city 2', 'city 3'];
 
-  constructor() { }
+  constructor( private catalogsDataService: CatalogsDataService ) { }
 
   ngOnInit(): void {
   }
@@ -16,6 +17,7 @@ export class CatalogCountriesComponent implements OnInit {
   // Methods
   addCity(): void{
     console.log('add city');
+    this.catalogsDataService.createCity({name: 'city 1'}).subscribe( (resp: any) => { console.log(resp); } );
   }
 
   editCity(index: number): void{

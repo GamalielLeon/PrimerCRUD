@@ -19,11 +19,11 @@ export class CatalogCountriesComponent implements OnInit {
   }
 
   editCity(index: number): void{
-    console.log(index);
+    console.log(index + 'edit');
   }
 
   deleteCity(index: number): void{
-    console.log(index);
+    console.log(index + 'del');
   }
 
   // Setters

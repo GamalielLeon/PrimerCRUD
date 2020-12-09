@@ -16,7 +16,7 @@
             <tr *ngFor="let city of cities; let i=index" class="align-self-center">
                 <td>{{city}}</td>
                 <td>
-                    <button class="btn btn-outline-success border-2 mx-3" (click)="editCity(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-success border-2" (click)="editCity(i)"> <span class="far fa-edit"></span> Editar </button>
                     <button class="btn btn-outline-danger border-2" (click)="deleteCity(i)"> <span class="fas fa-trash"></span> Eliminar </button>
                 </td>
             </tr>
@@ -25,7 +25,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="formCities" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title" id="formCitiesTitle">Agregar nueva ciudad</span>
@@ -34,7 +34,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="cityName" class="form-label">Nombre de la ciudad</label>
+                            <label for="cityName" class="form-label">Nombre de la ciudad (*)</label>
                             <input type="text" class="form-control" id="cityName">
                         </div>
                         <button type="submit" class="btn btn-primary" (click)="addCity()">Guardar</button>

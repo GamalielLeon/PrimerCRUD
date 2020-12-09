@@ -1,1 +1,70 @@
-<p>catalog-employees works!</p>
+<h2 class="catalog-title">EMPLEADOS</h2>
+
+<section class="container">
+    <table class="table table-hover text-center align-middle table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Oficina</th>
+                <th scope="col">
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formEmployees">
+                        <span class="far fa-edit"></span> Agregar empleado
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees; let i=index" class="align-self-center">
+                <td>{{employee.num}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.phoneNumber}}</td>
+                <td>{{employee.office}}</td>
+                <td>
+                    <button class="btn btn-outline-success border-2" (click)="editEmployee(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-danger border-2" (click)="deleteEmployee(i)"> <span class="fas fa-trash"></span> Eliminar </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="formEmployees" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="formEmployeesTitle">Agregar nuevo empleado</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="officeName" class="form-label">Número del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeeName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officeName" class="form-label">Nombre del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeeName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officeName" class="form-label">Correo electrónico del empleado (*)</label>
+                            <input type="email" class="form-control" id="employeeName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officePhone" class="form-label">Teléfono del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeePhone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officeDirection" class="form-label">Oficina donde labora el empleado</label>
+                            <input type="text" class="form-control" id="employeeDirection">
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="addEmployee()">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

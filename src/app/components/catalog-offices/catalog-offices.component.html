@@ -1,1 +1,58 @@
-<p>catalog-offices works!</p>
+<h2 class="catalog-title">OFICINAS</h2>
+
+<section class="container">
+    <table class="table table-hover text-center align-middle table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formOffices">
+                        <span class="far fa-edit"></span> Agregar oficina
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let office of offices; let i=index" class="align-self-center">
+                <td>{{office.name}}</td>
+                <td>{{office.phoneNumber}}</td>
+                <td>{{office.direction}}</td>
+                <td>
+                    <button class="btn btn-outline-success border-2" (click)="editOffice(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-danger border-2" (click)="deleteOffice(i)"> <span class="fas fa-trash"></span> Eliminar </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="formOffices" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="formOfficesTitle">Agregar nueva oficina</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="officeName" class="form-label">Nombre de la oficina (*)</label>
+                            <input type="text" class="form-control" id="officeName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officePhone" class="form-label">Teléfono de la oficina (*)</label>
+                            <input type="text" class="form-control" id="officePhone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="officeDirection" class="form-label">Dirección de la oficina</label>
+                            <input type="text" class="form-control" id="officeDirection">
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="addOffice()">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

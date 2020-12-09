@@ -9,11 +9,12 @@ import { CatalogsDataService } from '../../services/catalogs-data.service';
 })
 export class CatalogCountriesComponent implements OnInit {
   cities: string[] = ['city 1', 'city 2', 'city 3'];
+  private bandAddCity: boolean = false;
   formCity: FormGroup;
 
   constructor( private catalogsDataService: CatalogsDataService, private formBuilder: FormBuilder ) {
     this.formCity = this.formBuilder.group({
-      cityName: ['dd']
+      cityName: ['']
     });
   }
 
@@ -23,11 +24,13 @@ export class CatalogCountriesComponent implements OnInit {
   // Methods
   checkSubmit(): void{
     console.log(this.formCity);
+    this.addCity();
+    this.setBandAddCity(false);
   }
 
   addCity(): void{
     console.log('add city');
-    this.catalogsDataService.createCity({name: 'city 1'}).subscribe( (resp: any) => { console.log(resp); } );
+    this.catalogsDataService.createCity({name: this.formCity.value.cityName}).subscribe( (resp: any) => { console.log(resp); } );
   }
 
   editCity(index: number): void{
@@ -39,6 +42,8 @@ export class CatalogCountriesComponent implements OnInit {
   }
 
   // Setters
+  setBandAddCity(addCity: boolean): void{ this.bandAddCity = addCity; }
 
   // Getters
+  getBandAddCity = (): boolean => this.bandAddCity;
 }

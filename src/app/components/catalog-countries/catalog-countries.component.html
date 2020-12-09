@@ -6,7 +6,7 @@
             <tr>
                 <th scope="col">Nombre de la ciudad</th>
                 <th scope="col">
-                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formCities">
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formCities" (click)="setBandAddCity(true)">
                         <span class="far fa-edit"></span> Agregar ciudad
                     </button>
                 </th>
@@ -37,7 +37,7 @@
                             <label for="cityName" class="form-label">Nombre de la ciudad (*)</label>
                             <input type="text" class="form-control" id="cityName" placeholder="Mexico" formControlName="cityName">
                         </div>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-primary" [class.disabled]="!getBandAddCity()">Guardar</button>
                     </form>
                 </div>
             </div>

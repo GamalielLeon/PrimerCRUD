@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CityModel } from '../models/city.model';
 import { OfficeModel } from '../models/office.model';

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catalog-offices.component.css']
 })
 export class CatalogOfficesComponent implements OnInit {
-  offices: object = [
+  offices = [
     {name: 'office 1', phoneNumber: 11111111, address: 'Av 1 no 01, zip code 11111'},
     {name: 'office 2', phoneNumber: 22222222, address: 'Av 2 no 02, zip code 22222'},
     {name: 'office 3', phoneNumber: 33333333, address: 'Av 3 no 03, zip code 22222'}

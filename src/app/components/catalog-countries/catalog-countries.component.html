@@ -6,15 +6,15 @@
             <tr>
                 <th scope="col">Nombre de la ciudad</th>
                 <th scope="col">
-                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formCities" (click)="setBandAddCity(true)">
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formCities" (click)="clickedBtnAddCity()">
                         <span class="far fa-edit"></span> Agregar ciudad
                     </button>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let city of cities; let i=index" class="align-self-center">
-                <td>{{city}}</td>
+            <tr *ngFor="let city of getListOfCities(); let i=index" class="align-self-center">
+                <td>{{city.name}}</td>
                 <td>
                     <button class="btn btn-outline-success border-2" (click)="editCity(i)"> <span class="far fa-edit"></span> Editar </button>
                     <button class="btn btn-outline-danger border-2" (click)="deleteCity(i)"> <span class="fas fa-trash"></span> Eliminar </button>
@@ -35,12 +35,17 @@
                     <form [formGroup]="formCity" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="cityName" class="form-label">Nombre de la ciudad (*)</label>
-                            <input type="text" class="form-control" id="cityName" placeholder="Mexico" formControlName="cityName">
+                            <input type="text" class="form-control" id="cityName" placeholder="Mexico" formControlName="name" [class.is-invalid]="isCityNameInvalid()">
+                            <small *ngIf="isCityNameInvalid()" class="text-danger">Ingrese solo caracteres alfanuméricos (max. 40 caracteres)</small>
                         </div>
-                        <button type="submit" class="btn btn-primary" [class.disabled]="!getBandAddCity()">Guardar</button>
+                        <button type="submit" class="btn btn-primary" [class.disabled]="!getBandAddCity() || formCity.invalid">Guardar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div>
+    {{this.formCity.value | json}} <br> {{this.formCity.status}}
+</div>

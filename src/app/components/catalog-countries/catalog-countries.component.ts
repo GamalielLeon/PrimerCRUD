@@ -18,6 +18,7 @@ export class CatalogCountriesComponent implements OnInit {
 
   // Inject services and set the validation rules for each form field.
   constructor( private catalogsDataService: CatalogsDataService, private formBuilder: FormBuilder ) {
+    this.generateListOFCities();
     this.formCity = this.formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
       name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]]
@@ -25,6 +26,10 @@ export class CatalogCountriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  private generateListOFCities(): void {
     let aux: object;
     this.catalogsDataService.getCities().subscribe( (resp: any) => {
       aux = { ...resp };

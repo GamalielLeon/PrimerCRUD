@@ -74,7 +74,7 @@ export class CatalogEmployeesComponent implements OnInit {
   clickedBtnEditEmployee(index: number): void{
     this.dataOperation = 2;
     this.indexEmployee = index;
-    const currentEmployeeToEdit: any = this.listOfOffices[this.indexEmployee];
+    const currentEmployeeToEdit: any = this.listOfEmployees[this.indexEmployee];
     for (const key of this.KEYS_FORM_EMPLOYEE){ this.formEmployee.controls[key].setValue(currentEmployeeToEdit[key]); }
   }
   clickedBtnDeleteEmployee(index: number): void{

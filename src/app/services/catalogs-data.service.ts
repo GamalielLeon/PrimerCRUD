@@ -4,6 +4,7 @@ import { CityModel } from '../models/city.model';
 import { OfficeModel } from '../models/office.model';
 import { EmployeeModel } from '../models/employee.model';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,30 +24,33 @@ export class CatalogsDataService {
   // Inside map(), the id obtained is stored into the current object to save in firebase
   // Finally, the whole object is returned as a result of consuming the service.
   */
-  createCity(city: CityModel): any {
+  createCity(city: CityModel): Observable<CityModel> {
     return this.http.post(`${this.urlFireBase}/cities.json`, city).pipe(
       map(
-        (resp: any) => {
-          city.id = resp.name;
+        (cityObjectFirebase: any) => {
+          city.id = cityObjectFirebase.name;
           return city;
         } )
-    ); }
-  createOffice(office: OfficeModel): any {
+    );
+  }
+  createOffice(office: OfficeModel): Observable<OfficeModel> {
     return this.http.post(`${this.urlFireBase}/offices.json`, office).pipe(
       map(
-        (resp: any) => {
-          office.id = resp.name;
+        (officeObjectFirebase: any) => {
+          office.id = officeObjectFirebase.name;
           return office;
         } )
-    ); }
-  createEmployee(employee: EmployeeModel): any {
+    );
+  }
+  createEmployee(employee: EmployeeModel): Observable<EmployeeModel> {
     return this.http.post(`${this.urlFireBase}/employees.json`, employee).pipe(
       map(
-        (resp: any) => {
-          employee.id = resp.name;
+        (employeeObjectFirebase: any) => {
+          employee.id = employeeObjectFirebase.name;
           return employee;
         } )
-    ); }
+    );
+  }
 
   // Methods that update an element in Firebase
   /*
@@ -54,25 +58,28 @@ export class CatalogsDataService {
   // Use the new reference to delete the 'id' property
   // Update the element in Firebase using the new reference
   */
-  updateCity(city: CityModel): any {
+  updateCity(city: CityModel): Observable<object> {
     const cityTemp = { ...city };
     delete cityTemp.id;
     return this.http.put(`${this.urlFireBase}/cities/${city.id}.json`, cityTemp);
   }
-  updateOffice(office: OfficeModel): any {
+  updateOffice(office: OfficeModel): Observable<object> {
     const officeTemp = { ...office };
     delete officeTemp.id;
     return this.http.put(`${this.urlFireBase}/offices.json`, officeTemp);
   }
-  updateEmployee(employee: EmployeeModel): any {
+  updateEmployee(employee: EmployeeModel): Observable<object> {
     const employeeTemp = { ...employee };
     delete employeeTemp.id;
     return this.http.put(`${this.urlFireBase}/employees.json`, employeeTemp);
   }
 
+  // Methods that update an element in Firebase
+  deleteCity = (cityId: string): Observable<object> => this.http.delete(`${this.urlFireBase}/cities/${cityId}.json`);
+
   // Methods that get all the data from Firebase
-  getCities = () => this.http.get(`${this.urlFireBase}/cities.json`);
-  getOffices = () => this.http.get(`${this.urlFireBase}/offices.json`);
-  getEmployees = () => this.http.get(`${this.urlFireBase}/employees.json`);
+  getCities = (): Observable<object> => this.http.get(`${this.urlFireBase}/cities.json`);
+  getOffices = (): Observable<object> => this.http.get(`${this.urlFireBase}/offices.json`);
+  getEmployees = (): Observable<object> => this.http.get(`${this.urlFireBase}/employees.json`);
 
 }

@@ -18,13 +18,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let employee of employees; let i=index" class="align-self-center">
-                <td>{{employee.numberEmployee}}</td>
+                <td>{{employee.number}}</td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.phoneNumber}}</td>
                 <td>{{employee.office}}</td>
                 <td>
-                    <button class="btn btn-outline-success border-2" (click)="editEmployee(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-success border-2" data-bs-toggle="modal" data-bs-target="#formEmployees" (click)="editEmployee(i)"> <span class="far fa-edit"></span> Editar </button>
                     <button class="btn btn-outline-danger border-2" (click)="deleteEmployee(i)"> <span class="fas fa-trash"></span> Eliminar </button>
                 </td>
             </tr>
@@ -40,28 +40,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="formEmployee">
+                    <form [formGroup]="formEmployee" (onSubmit)="true">
                         <div class="mb-3">
-                            <label for="officeName" class="form-label">Número del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeeName">
+                            <label for="employeeNumber" class="form-label">Número del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeeNumber" formControlName="number">
                         </div>
                         <div class="mb-3">
-                            <label for="officeName" class="form-label">Nombre del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeeName">
+                            <label for="employeeName" class="form-label">Nombre del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeeName" formControlName="name">
                         </div>
                         <div class="mb-3">
-                            <label for="officeName" class="form-label">Correo electrónico del empleado (*)</label>
-                            <input type="email" class="form-control" id="employeeName">
+                            <label for="employeeEmail" class="form-label">Correo electrónico del empleado (*)</label>
+                            <input type="email" class="form-control" id="employeeEmail" formControlName="email">
                         </div>
                         <div class="mb-3">
-                            <label for="officePhone" class="form-label">Teléfono del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeePhone">
+                            <label for="employeePhoneNumber" class="form-label">Teléfono del empleado (*)</label>
+                            <input type="text" class="form-control" id="employeePhoneNumber" formControlName="phoneNumber">
                         </div>
                         <div class="mb-3">
-                            <label for="officeDirection" class="form-label">Oficina donde labora el empleado</label>
-                            <input type="text" class="form-control" id="employeeDirection">
+                            <label for="employeeOffice" class="form-label">Oficina donde labora el empleado</label>
+                            <input type="text" class="form-control" id="employeeOffice" formControlName="office">
                         </div>
-                        <button type="submit" class="btn btn-primary" (click)="addEmployee()">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
             </div>

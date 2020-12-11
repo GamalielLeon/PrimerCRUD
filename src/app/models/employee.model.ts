@@ -1,6 +1,6 @@
 export interface EmployeeModel {
   id?: string;
-  numberEmployee: number;
+  number: number;
   name: string;
   email: string;
   phoneNumber: number;

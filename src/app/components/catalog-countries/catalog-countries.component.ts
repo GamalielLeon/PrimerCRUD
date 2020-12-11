@@ -3,12 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogsDataService } from '../../services/catalogs-data.service';
 import { CityModel } from '../../models/city.model';
 
-enum DataOperation{
-  read = 0,
-  add,
-  edit,
-  delete
-}
+enum DataOperation { add = 1, edit }
 @Component({
   selector: 'app-catalog-countries',
   templateUrl: './catalog-countries.component.html',
@@ -38,12 +33,12 @@ export class CatalogCountriesComponent implements OnInit {
 
   // Method to generate an array of CityModel objects, adding the id of each one obtained from Firebase
   private generateListOFCities(): void {
-    let respTemp: object;
-    this.catalogsDataService.getCities().subscribe( (resp: any) => {
-      respTemp = { ...resp };
-      Object.keys(respTemp).forEach( (key: string) => {
-        const cityTemp: CityModel = resp[key];
-        cityTemp.id = key;
+    let citiesJsonTemp: object;
+    this.catalogsDataService.getCities().subscribe( (citiesJson: any) => {
+      citiesJsonTemp = { ...citiesJson };
+      Object.keys(citiesJsonTemp).forEach( (id: string) => {
+        const cityTemp: CityModel = citiesJson[id];
+        cityTemp.id = id;
         this.listOfCities.push(cityTemp);
       } );
     });
@@ -51,7 +46,7 @@ export class CatalogCountriesComponent implements OnInit {
 
   checkSubmit(): void{
     if (this.formCity.valid) {
-      switch (this.getDataOperation()){
+      switch (this.dataOperation) {
         case DataOperation.add:
           this.addCity();
           console.log('operation set to "add"');
@@ -60,14 +55,9 @@ export class CatalogCountriesComponent implements OnInit {
           this.editCity();
           console.log('operation set to "edit"');
           break;
-        case DataOperation.delete:
-          this.deleteCity();
-          console.log('operation set to "delete"');
-          break;
         default:
           console.log('operation set to "read"');
       }
-      this.dataOperation = 0;
       this.formCity.reset();
     }
   }
@@ -80,29 +70,30 @@ export class CatalogCountriesComponent implements OnInit {
   clickedBtnEditCity(index: number): void{
     this.dataOperation = 2;
     this.indexCity = index;
-    this.formCity.controls.name.setValue('ddd');
-
+    this.formCity.controls.name.setValue( this.listOfCities[this.indexCity].name );
   }
 
   clickedBtnDeleteCity(index: number): void{
     this.dataOperation = 3;
-    this.indexCity = index;
+    this.deleteCity(index);
+    this.listOfCities.splice(index, 1);
   }
 
   addCity(): void{
-    console.log('add city');
-    this.catalogsDataService.createCity(this.formCity.value).subscribe( (resp: CityModel) => {
-      this.listOfCities.push(resp);
+    this.catalogsDataService.createCity(this.formCity.value).subscribe( (cityAdded: CityModel) => {
+      this.listOfCities.push(cityAdded);
     } );
   }
 
   editCity(): void{
-    const cityToEdit = this.getListOfCities()[this.indexCity];
+    const cityToEdit: CityModel = this.listOfCities[this.indexCity];
     cityToEdit.name = this.formCity.value.name;
-    this.catalogsDataService.updateCity(cityToEdit).subscribe( (resp: CityModel) => console.log(resp) );
+    this.catalogsDataService.updateCity(cityToEdit).subscribe( (cityEdited: object) => console.log(cityEdited) );
   }
 
-  deleteCity(): void{
+  deleteCity(indexCity: number): void{
+    const aux: CityModel = this.listOfCities[indexCity];
+    this.catalogsDataService.deleteCity(String(aux.id)).subscribe();
   }
 
   // Method for getting if a form field is invalid
@@ -112,9 +103,7 @@ export class CatalogCountriesComponent implements OnInit {
   }
 
   /********** SETTERS **********/
-  setDataOperation(dataOp: number): void { this.dataOperation = dataOp; }
 
   /********** GETTERS **********/
   getListOfCities = (): CityModel[] => this.listOfCities;
-  getDataOperation = (): number => this.dataOperation;
 }

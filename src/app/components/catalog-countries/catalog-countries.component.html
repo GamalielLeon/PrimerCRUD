@@ -17,7 +17,7 @@
                 <td>{{city.name}}</td>
                 <td>
                     <button class="btn btn-outline-success border-2" data-bs-toggle="modal" data-bs-target="#formCities" (click)="clickedBtnEditCity(i)"> <span class="far fa-edit"></span> Editar </button>
-                    <button class="btn btn-outline-danger border-2" data-bs-toggle="modal" data-bs-target="#formCities" (click)="clickedBtnDeleteCity(i)"> <span class="fas fa-trash"></span> Eliminar </button>
+                    <button class="btn btn-outline-danger border-2" (click)="clickedBtnDeleteCity(i)"> <span class="fas fa-trash"></span> Eliminar </button>
                 </td>
             </tr>
         </tbody>

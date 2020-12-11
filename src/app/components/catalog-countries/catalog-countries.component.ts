@@ -18,13 +18,13 @@ export class CatalogCountriesComponent implements OnInit {
 
   // Inject services and set the validation rules for each form field.
   constructor( private catalogsDataService: CatalogsDataService, private formBuilder: FormBuilder ) {
-    this.generateListOFCities();
+    this.generateListOfCities();
     this.formCity = this.formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
       name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]]
     });
   }
-  ngOnInit(): void { console.log(this.formCity.controls); }
+  ngOnInit(): void {  }
 
   /********** METHODS **********/
   checkSubmit(): void{
@@ -68,7 +68,7 @@ export class CatalogCountriesComponent implements OnInit {
     const aux: CityModel = this.listOfCities[indexCity];
     this.catalogsDataService.deleteCity(String(aux.id)).subscribe();
   }
-  private generateListOFCities(): void {
+  private generateListOfCities(): void {
     // Generate an array of CityModel objects, adding the id of each one obtained from Firebase
     // First, create a new reference for the JSON object brought from Firebase
     // Then, obtain an array with the properties of that JSON (which are the ID's)

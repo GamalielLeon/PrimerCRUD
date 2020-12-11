@@ -7,21 +7,23 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Teléfono</th>
                 <th scope="col">Dirección</th>
+                <th scope="col">Ciudad</th>
                 <th scope="col">
-                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formOffices">
+                    <button class="btn btn-outline-primary border-2 mx-3" data-bs-toggle="modal" data-bs-target="#formOffices" (click)="clickedBtnAddOffice()">
                         <span class="far fa-edit"></span> Agregar oficina
                     </button>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let office of offices; let i=index" class="align-self-center">
+            <tr *ngFor="let office of getListOfOffices(); let i=index" class="align-self-center">
                 <td>{{office.name}}</td>
                 <td>{{office.phoneNumber}}</td>
                 <td>{{office.address}}</td>
+                <td>{{office.city}}</td>
                 <td>
-                    <button class="btn btn-outline-success border-2" (click)="editOffice(i)"> <span class="far fa-edit"></span> Editar </button>
-                    <button class="btn btn-outline-danger border-2" (click)="deleteOffice(i)"> <span class="fas fa-trash"></span> Eliminar </button>
+                    <button class="btn btn-outline-success border-2" data-bs-toggle="modal" data-bs-target="#formOffices" (click)="clickedBtnEditOffice(i)"> <span class="far fa-edit"></span> Editar </button>
+                    <button class="btn btn-outline-danger border-2" (click)="clickedBtnDeleteOffice(i)"> <span class="fas fa-trash"></span> Eliminar </button>
                 </td>
             </tr>
         </tbody>
@@ -36,20 +38,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="formOffice" (ngSubmit)="false">
+                    <form [formGroup]="formOffice" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="officeName" class="form-label">Nombre de la oficina (*)</label>
-                            <input type="text" class="form-control" id="officeName">
+                            <input type="text" class="form-control" id="officeName" formControlName="name" [class.is-invalid]="isOfficeNameInvalid()">
+                            <small *ngIf="isOfficeNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (max. 40)</small>
                         </div>
                         <div class="mb-3">
                             <label for="officePhone" class="form-label">Teléfono de la oficina (*)</label>
-                            <input type="text" class="form-control" id="officePhone">
+                            <input type="text" class="form-control" id="officePhone" formControlName="phoneNumber" [class.is-invalid]="isOfficePhoneNumberInvalid()">
+                            <small *ngIf="isOfficePhoneNumberInvalid()" class="text-danger">Deben ser solo 10 números</small>
                         </div>
                         <div class="mb-3">
                             <label for="officeDirection" class="form-label">Dirección de la oficina</label>
-                            <input type="text" class="form-control" id="officeDirection">
+                            <input type="text" class="form-control" id="officeDirection" formControlName="address" [class.is-invalid]="isOfficeAddressInvalid()">
+                            <small *ngIf="isOfficeAddressInvalid()" class="text-danger">Algunos caracteres no son permitidos</small>
                         </div>
-                        <button type="submit" class="btn btn-primary" (click)="addOffice()">Guardar</button>
+                        <div class="mb-3">
+                            <label for="officeCity" class="form-label">Ciudad a la que pertenece la oficina</label>
+                            <select class="form-select" id="officeCity" formControlName="city" [class.is-invalid]="isOfficeCityInvalid()">
+                                <option *ngFor="let city of getListOfCities(); let i=index">{{city.name}}</option>
+                            </select>
+                            <small *ngIf="isOfficeCityInvalid()" class="text-danger">Debe seleccionar una opción</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary" [class.disabled]="areOfficeFieldsInvalid() || formOffice.invalid">Guardar</button>
                     </form>
                 </div>
             </div>

@@ -66,12 +66,12 @@ export class CatalogsDataService {
   updateOffice(office: OfficeModel): Observable<object> {
     const officeTemp = { ...office };
     delete officeTemp.id;
-    return this.http.put(`${this.urlFireBase}/offices.json`, officeTemp);
+    return this.http.put(`${this.urlFireBase}/offices/${office.id}.json`, officeTemp);
   }
   updateEmployee(employee: EmployeeModel): Observable<object> {
     const employeeTemp = { ...employee };
     delete employeeTemp.id;
-    return this.http.put(`${this.urlFireBase}/employees.json`, employeeTemp);
+    return this.http.put(`${this.urlFireBase}/employees/${employee.id}.json`, employeeTemp);
   }
 
   // Methods that delete an element in Firebase

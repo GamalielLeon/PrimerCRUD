@@ -24,7 +24,7 @@ export class CatalogCountriesComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]]
     });
   }
-  ngOnInit(): void {  }
+  ngOnInit(): void { }
 
   /********** METHODS **********/
   checkSubmit(): void{

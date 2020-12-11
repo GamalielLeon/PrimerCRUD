@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { CatalogEmployeesComponent } from './components/catalog-employees/catalog-employees.component';
 import { CatalogOfficesComponent } from './components/catalog-offices/catalog-offices.component';
 import { CatalogCountriesComponent } from './components/catalog-countries/catalog-countries.component';
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {path: 'employees', component: CatalogEmployeesComponent},

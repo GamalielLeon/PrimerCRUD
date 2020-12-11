@@ -26,14 +26,13 @@ export class CatalogEmployeesComponent implements OnInit {
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
       number: ['', [Validators.required, Validators.pattern('[0-9]{10,12}')]],
       name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]],
-      email: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9._-]{2,})+(@[a-zA-Z0-9._-]{2,})+(\.[a-z]{2,5}$)')]],
+      email: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9._-]{2,})+([@]+[a-zA-Z0-9._-]{2,})+([\.]+[a-z]{2,5}$)')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       office: ['', [Validators.required]]
     });
     // Store the attributes of the form into a string array
     this.KEYS_FORM_EMPLOYEE = Object.keys(this.formEmployee.value);
   }
-
   ngOnInit(): void { }
 
   /********** METHODS **********/

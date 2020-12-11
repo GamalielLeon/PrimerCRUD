@@ -13,7 +13,11 @@ export class CatalogOfficesComponent implements OnInit {
     {name: 'office 3', phoneNumber: 33333333, address: 'Av 3 no 03, zip code 22222'}
   ];
 
-  constructor() { }
+  formOffice: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.formOffice = formBuilder.group({});
+  }
 
   ngOnInit(): void {
   }

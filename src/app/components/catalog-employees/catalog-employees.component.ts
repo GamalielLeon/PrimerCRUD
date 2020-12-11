@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-catalog-employees',
@@ -12,7 +13,11 @@ export class CatalogEmployeesComponent implements OnInit {
     {numberEmployee: 3, name: 'nombre y apellidos 3', email: 'correo electrónico 3', phoneNumber: 33333333, office: 'office 3'}
   ];
 
-  constructor() { }
+  formEmployee: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.formEmployee = formBuilder.group({});
+  }
 
   ngOnInit(): void {
   }

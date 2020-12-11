@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogsDataService } from '../../services/catalogs-data.service';
 import { CityModel } from '../../models/city.model';
 
+enum DataOperation{
+  read = 0,
+  add,
+  edit,
+  delete
+}
 @Component({
   selector: 'app-catalog-countries',
   templateUrl: './catalog-countries.component.html',
@@ -10,8 +16,9 @@ import { CityModel } from '../../models/city.model';
 })
 export class CatalogCountriesComponent implements OnInit {
   // Attributes
-  private bandAddCity: boolean = false;
   private listOfCities: CityModel[] = [];
+  private dataOperation: number = 0;
+  private indexCity: number = 0;
 
   // References
   formCity: FormGroup;
@@ -25,59 +32,89 @@ export class CatalogCountriesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { console.log(this.formCity.controls); }
 
-  }
+  /********** METHODS **********/
 
+  // Method to generate an array of CityModel objects, adding the id of each one obtained from Firebase
   private generateListOFCities(): void {
-    let aux: object;
+    let respTemp: object;
     this.catalogsDataService.getCities().subscribe( (resp: any) => {
-      aux = { ...resp };
-      Object.keys(aux).forEach( (key: string) => {
-        const aux2: CityModel = resp[key];
-        aux2.id = key;
-        this.listOfCities.push(aux2);
+      respTemp = { ...resp };
+      Object.keys(respTemp).forEach( (key: string) => {
+        const cityTemp: CityModel = resp[key];
+        cityTemp.id = key;
+        this.listOfCities.push(cityTemp);
       } );
-      console.log(this.listOfCities);
-
     });
   }
 
-  // Methods
   checkSubmit(): void{
-    // console.log(this.formCity);
-    if (this.formCity.valid) { this.addCity(); }
-    this.setBandAddCity(false);
+    if (this.formCity.valid) {
+      switch (this.getDataOperation()){
+        case DataOperation.add:
+          this.addCity();
+          console.log('operation set to "add"');
+          break;
+        case DataOperation.edit:
+          this.editCity();
+          console.log('operation set to "edit"');
+          break;
+        case DataOperation.delete:
+          this.deleteCity();
+          console.log('operation set to "delete"');
+          break;
+        default:
+          console.log('operation set to "read"');
+      }
+      this.dataOperation = 0;
+      this.formCity.reset();
+    }
   }
 
   clickedBtnAddCity(): void{
-    this.setBandAddCity(true);
+    this.dataOperation = 1;
     this.formCity.reset();
+  }
+
+  clickedBtnEditCity(index: number): void{
+    this.dataOperation = 2;
+    this.indexCity = index;
+    this.formCity.controls.name.setValue('ddd');
+
+  }
+
+  clickedBtnDeleteCity(index: number): void{
+    this.dataOperation = 3;
+    this.indexCity = index;
   }
 
   addCity(): void{
     console.log('add city');
-    this.catalogsDataService.createCity(this.formCity.value).subscribe( (resp: JSON) => console.log(resp) );
+    this.catalogsDataService.createCity(this.formCity.value).subscribe( (resp: CityModel) => {
+      this.listOfCities.push(resp);
+    } );
   }
 
-  editCity(index: number): void{
-    console.log(index + 'edit');
+  editCity(): void{
+    const cityToEdit = this.getListOfCities()[this.indexCity];
+    cityToEdit.name = this.formCity.value.name;
+    this.catalogsDataService.updateCity(cityToEdit).subscribe( (resp: CityModel) => console.log(resp) );
   }
 
-  deleteCity(index: number): void{
-    console.log(index + 'del');
+  deleteCity(): void{
   }
 
-  // Methods for getting if a form field is invalid
+  // Method for getting if a form field is invalid
   isCityNameInvalid(): boolean{
     const cityNameField = this.formCity.controls.name;
     return (cityNameField.invalid && cityNameField.touched);
   }
 
-  // Setters
-  private setBandAddCity(addCity: boolean): void{ this.bandAddCity = addCity; }
+  /********** SETTERS **********/
+  setDataOperation(dataOp: number): void { this.dataOperation = dataOp; }
 
-  // Getters
-  getBandAddCity = (): boolean => this.bandAddCity;
+  /********** GETTERS **********/
   getListOfCities = (): CityModel[] => this.listOfCities;
+  getDataOperation = (): number => this.dataOperation;
 }

@@ -21,7 +21,7 @@ export class CatalogCountriesComponent implements OnInit {
     this.generateListOfCities();
     this.formCity = this.formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
-      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]]
+      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,40}')]]
     });
   }
   ngOnInit(): void { }

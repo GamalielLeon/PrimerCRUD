@@ -25,7 +25,7 @@ export class CatalogEmployeesComponent implements OnInit {
     this.formEmployee = formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
       number: ['', [Validators.required, Validators.pattern('[0-9]{10,12}')]],
-      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]],
+      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,40}')]],
       email: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9._-]{2,})+([@]+[a-zA-Z0-9._-]{2,})+([\.]+[a-z]{2,5}$)')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       office: ['', [Validators.required]]

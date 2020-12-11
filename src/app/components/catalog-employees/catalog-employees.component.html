@@ -43,22 +43,22 @@
                     <form [formGroup]="formEmployee" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="employeeNumber" class="form-label">Número del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeeNumber" formControlName="number" [class.is-invalid]="isEmployeeNumberInvalid()">
+                            <input type="text" class="form-control" id="employeeNumber" placeholder="00000000001" formControlName="number" [class.is-invalid]="isEmployeeNumberInvalid()">
                             <small *ngIf="isEmployeeNumberInvalid()" class="text-danger">Debe ser un número entre 10 y 12 dígitos</small>
                         </div>
                         <div class="mb-3">
                             <label for="employeeName" class="form-label">Nombre del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeeName" formControlName="name" [class.is-invalid]="isEmployeeNameInvalid()">
-                            <small *ngIf="isEmployeeNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (max. 40)</small>
+                            <input type="text" class="form-control" id="employeeName" placeholder="Eduardo" formControlName="name" [class.is-invalid]="isEmployeeNameInvalid()">
+                            <small *ngIf="isEmployeeNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (Entre 2 y 40 caracteres)</small>
                         </div>
                         <div class="mb-3">
                             <label for="employeeEmail" class="form-label">Correo electrónico del empleado (*)</label>
-                            <input type="email" class="form-control" id="employeeEmail" formControlName="email" [class.is-invalid]="isEmployeeEmailInvalid()">
+                            <input type="email" class="form-control" id="employeeEmail" placeholder="empleado@empresa.com" formControlName="email" [class.is-invalid]="isEmployeeEmailInvalid()">
                             <small *ngIf="isEmployeeEmailInvalid()" class="text-danger">Formato de correo inválido</small>
                         </div>
                         <div class="mb-3">
                             <label for="employeePhoneNumber" class="form-label">Teléfono del empleado (*)</label>
-                            <input type="text" class="form-control" id="employeePhoneNumber" formControlName="phoneNumber" [class.is-invalid]="isEmployeePhoneNumberInvalid()">
+                            <input type="text" class="form-control" id="employeePhoneNumber" placeholder="5511223344" formControlName="phoneNumber" [class.is-invalid]="isEmployeePhoneNumberInvalid()">
                             <small *ngIf="isEmployeePhoneNumberInvalid()" class="text-danger">Deben ser solo 10 números</small>
                         </div>
                         <div class="mb-3">

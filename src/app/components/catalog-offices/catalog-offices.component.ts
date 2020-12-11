@@ -25,7 +25,7 @@ export class CatalogOfficesComponent implements OnInit {
     this.generateListOfCities();
     this.formOffice = formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
-      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]],
+      name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,40}')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       address: ['', [Validators.pattern('[a-zA-Z0-9 _-ÑñáéíóúÁÉÍÓÚ./]{1,}')]],
       city: ['', [Validators.required]]

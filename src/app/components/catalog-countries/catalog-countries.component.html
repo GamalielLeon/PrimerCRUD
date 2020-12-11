@@ -36,7 +36,7 @@
                         <div class="mb-3">
                             <label for="cityName" class="form-label">Nombre de la ciudad (*)</label>
                             <input type="text" class="form-control" id="cityName" placeholder="Mexico" formControlName="name" [class.is-invalid]="isCityNameInvalid()">
-                            <small *ngIf="isCityNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (max. 40)</small>
+                            <small *ngIf="isCityNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (Entre 2 y 40 caracteres)</small>
                         </div>
                         <button type="submit" class="btn btn-primary" [class.disabled]="isCityNameInvalid() || formCity.invalid">Guardar</button>
                     </form>

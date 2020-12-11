@@ -41,17 +41,17 @@
                     <form [formGroup]="formOffice" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="officeName" class="form-label">Nombre de la oficina (*)</label>
-                            <input type="text" class="form-control" id="officeName" formControlName="name" [class.is-invalid]="isOfficeNameInvalid()">
-                            <small *ngIf="isOfficeNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (max. 40)</small>
+                            <input type="text" class="form-control" id="officeName" placeholder="Oficina 1..." formControlName="name" [class.is-invalid]="isOfficeNameInvalid()">
+                            <small *ngIf="isOfficeNameInvalid()" class="text-danger">Solo caracteres alfanuméricos (Entre 2 y 40 caracteres)</small>
                         </div>
                         <div class="mb-3">
                             <label for="officePhone" class="form-label">Teléfono de la oficina (*)</label>
-                            <input type="text" class="form-control" id="officePhone" formControlName="phoneNumber" [class.is-invalid]="isOfficePhoneNumberInvalid()">
+                            <input type="text" class="form-control" id="officePhone" placeholder="0123456789" formControlName="phoneNumber" [class.is-invalid]="isOfficePhoneNumberInvalid()">
                             <small *ngIf="isOfficePhoneNumberInvalid()" class="text-danger">Deben ser solo 10 números</small>
                         </div>
                         <div class="mb-3">
                             <label for="officeDirection" class="form-label">Dirección de la oficina</label>
-                            <input type="text" class="form-control" id="officeDirection" formControlName="address" [class.is-invalid]="isOfficeAddressInvalid()">
+                            <input type="text" class="form-control" id="officeDirection" placeholder="Dirección oficina..." formControlName="address" [class.is-invalid]="isOfficeAddressInvalid()">
                             <small *ngIf="isOfficeAddressInvalid()" class="text-danger">Algunos caracteres no son permitidos</small>
                         </div>
                         <div class="mb-3">

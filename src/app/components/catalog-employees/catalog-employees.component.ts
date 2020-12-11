@@ -10,11 +10,6 @@ import { OfficeModel } from '../../models/office.model';
   styleUrls: ['./catalog-employees.component.css']
 })
 export class CatalogEmployeesComponent implements OnInit {
-  employees = [
-    {number: 1, name: 'nombre y apellidos 1', email: 'correo electrónico 1', phoneNumber: 11111111, office: 'office 1'},
-    {number: 2, name: 'nombre y apellidos 2', email: 'correo electrónico 2', phoneNumber: 22222222, office: 'office 2'},
-    {number: 3, name: 'nombre y apellidos 3', email: 'correo electrónico 3', phoneNumber: 33333333, office: 'office 3'}
-  ];
   // Attributes
   private listOfEmployees: EmployeeModel[] = [];
   private listOfOffices: OfficeModel[] = [];
@@ -25,13 +20,13 @@ export class CatalogEmployeesComponent implements OnInit {
   formEmployee: FormGroup;
 
   constructor(private catalogsDataService: CatalogsDataService, private formBuilder: FormBuilder) {
-    // this.generateListOfOffices();
-    // this.generateListOfCities();
+    this.generateListOfEmployees();
+    this.generateListOfOffices();
     this.formEmployee = formBuilder.group({
       // Required, cannot begin with a space, only admits alphanumerics and must have btw 3 to 40 characters.
       number: ['', [Validators.required, Validators.pattern('[0-9]{10,12}')]],
       name: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9ÑñáéíóúÁÉÍÓÚ]){2,39}')]],
-      email: ['', [Validators.pattern('([a-zA-z0-9._-]{2,})+(@[a-zA-Z0-9.-]{2,})+\.([a-z]{2,})$')]],
+      email: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9._-]{2,})+(@[a-zA-Z0-9._-]{2,})+(\.[a-z]{2,5}$)')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       office: ['', [Validators.required]]
     });
@@ -41,25 +36,101 @@ export class CatalogEmployeesComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /********** METHODS **********/
   checkSubmit(): void{
-    console.log(this.formEmployee.controls.email);
+    if (this.formEmployee.valid) { this.dataOperation === 1 ? this.addEmployee() : this.editEmployee(); }
+    this.formEmployee.reset();
+  }
+  // Methods for checking wether the form fields are invalid
+  isEmployeeNumberInvalid(): boolean{
+    const employeeNumberField = this.formEmployee.controls.number;
+    return (employeeNumberField.invalid && employeeNumberField.touched);
+  }
+  isEmployeeNameInvalid(): boolean{
+    const employeeNameField = this.formEmployee.controls.name;
+    return (employeeNameField.invalid && employeeNameField.touched);
+  }
+  isEmployeeEmailInvalid(): boolean{
+    const employeeEmailField = this.formEmployee.controls.email;
+    return (employeeEmailField.invalid && employeeEmailField.touched);
+  }
+  isEmployeePhoneNumberInvalid(): boolean{
+    const employeePhoneNumberField = this.formEmployee.controls.phoneNumber;
+    return (employeePhoneNumberField.invalid && employeePhoneNumberField.touched);
+  }
+  isEmployeeOfficeInvalid(): boolean{
+    const employeeOfficeField = this.formEmployee.controls.office;
+    return (employeeOfficeField.invalid && employeeOfficeField.touched);
+  }
+  areEmployeeFieldsInvalid(): boolean {
+    return this.isEmployeeNumberInvalid() && this.isEmployeeNameInvalid() &&
+    this.isEmployeePhoneNumberInvalid() && this.isEmployeeEmailInvalid() && this.isEmployeeOfficeInvalid();
   }
 
-  // Methods
-  addEmployee(): void{
-    console.log('add employee');
+  // Methods that check wether a button is pressed
+  clickedBtnAddEmployee(): void{
+    this.dataOperation = 1;
+    this.formEmployee.reset();
+  }
+  clickedBtnEditEmployee(index: number): void{
+    this.dataOperation = 2;
+    this.indexEmployee = index;
+    const currentEmployeeToEdit: any = this.listOfOffices[this.indexEmployee];
+    for (const key of this.KEYS_FORM_EMPLOYEE){ this.formEmployee.controls[key].setValue(currentEmployeeToEdit[key]); }
+  }
+  clickedBtnDeleteEmployee(index: number): void{
+    if (window.confirm('¿Está seguro de querer borrar este empleado?')) {
+      this.indexEmployee = index;
+      this.deleteEmployee();
+      this.listOfEmployees.splice(index, 1);
+    }
+  }
+  // Methods to perform the data operations: Create, Read, Update, Delete
+  private addEmployee(): void{
+    this.catalogsDataService.createEmployee(this.formEmployee.value).subscribe( (employeeAdded: EmployeeModel) => {
+      this.listOfEmployees.push(employeeAdded);
+    } );
+  }
+  private editEmployee(): void{
+    const employeeToEdit: any = this.listOfEmployees[this.indexEmployee];
+    for (const key of this.KEYS_FORM_EMPLOYEE){
+      employeeToEdit[key] = this.formEmployee.value[key];
+    }
+    this.catalogsDataService.updateEmployee(employeeToEdit).subscribe( (employeeEdited: object) => console.log(employeeEdited) );
+  }
+  private deleteEmployee(): void{
+    const aux: EmployeeModel = this.listOfEmployees[this.indexEmployee];
+    this.catalogsDataService.deleteEmployee(String(aux.id)).subscribe();
+  }
+  private generateListOfEmployees(): void {
+    // Generate an array of EmployeesModel objects, adding the id of each one obtained from Firebase
+    // First, create a new reference for the JSON object brought from Firebase
+    // Then, obtain an array with the properties of that JSON (which are the ID's)
+    // Finally, get the value of each ID property and store it into an object array.
+    let employeesJsonTemp: object;
+    this.catalogsDataService.getEmployees().subscribe( (employeesJson: any) => {
+      employeesJsonTemp = { ...employeesJson };
+      Object.keys(employeesJsonTemp).forEach( (id: string) => {
+        const employeeTemp: EmployeeModel = employeesJson[id];
+        employeeTemp.id = id;
+        this.listOfEmployees.push(employeeTemp);
+      });
+    });
+  }
+  private generateListOfOffices(): void {
+    let officesJsonTemp: object;
+    this.catalogsDataService.getOffices().subscribe( (officesJson: any) => {
+      officesJsonTemp = { ...officesJson };
+      Object.keys(officesJsonTemp).forEach( (id: string) => {
+        const officeTemp: OfficeModel = officesJson[id];
+        officeTemp.id = id;
+        this.listOfOffices.push(officeTemp);
+      });
+    });
   }
 
-  editEmployee(index: number): void{
-    console.log(index + 'edit');
-  }
-
-  deleteEmployee(index: number): void{
-    console.log(index + 'del');
-  }
-
-  // Setters
-
-  // Getters
+  /********** GETTERS **********/
+  getListOfEmployees = (): EmployeeModel[] => this.listOfEmployees;
+  getListOfOffices = (): OfficeModel[] => this.listOfOffices;
 
 }

@@ -74,7 +74,8 @@ export class CatalogOfficesComponent implements OnInit {
   }
   clickedBtnDeleteOffice(index: number): void{
     if (window.confirm('¿Está seguro de querer borrar esta oficina?')) {
-      this.deleteOffice(index);
+      this.indexOffice = index;
+      this.deleteOffice();
       this.listOfOffices.splice(index, 1);
     }
   }
@@ -91,7 +92,7 @@ export class CatalogOfficesComponent implements OnInit {
     }
     this.catalogsDataService.updateOffice(officeToEdit).subscribe( (officeEdited: object) => console.log(officeEdited) );
   }
-  private deleteOffice(indexOffice: number): void{
+  private deleteOffice(): void{
     const aux: OfficeModel = this.listOfOffices[this.indexOffice];
     this.catalogsDataService.deleteOffice(String(aux.id)).subscribe();
   }

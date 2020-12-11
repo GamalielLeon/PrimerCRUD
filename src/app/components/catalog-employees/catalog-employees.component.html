@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="formEmployee" (onSubmit)="true">
+                    <form [formGroup]="formEmployee" (ngSubmit)="checkSubmit()">
                         <div class="mb-3">
                             <label for="employeeNumber" class="form-label">Número del empleado (*)</label>
                             <input type="text" class="form-control" id="employeeNumber" formControlName="number">

@@ -33,7 +33,7 @@ export class CatalogOfficesComponent implements OnInit {
     // Store the attributes of the form into a string array
     this.KEYS_FORM_OFFICE = Object.keys(this.formOffice.value);
   }
-  ngOnInit(): void {  }
+  ngOnInit(): void { }
 
   /********** METHODS **********/
   checkSubmit(): void{

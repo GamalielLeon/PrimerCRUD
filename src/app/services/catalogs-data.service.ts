@@ -74,12 +74,13 @@ export class CatalogsDataService {
     return this.http.put(`${this.urlFireBase}/employees.json`, employeeTemp);
   }
 
-  // Methods that update an element in Firebase
+  // Methods that delete an element in Firebase
   deleteCity = (cityId: string): Observable<object> => this.http.delete(`${this.urlFireBase}/cities/${cityId}.json`);
+  deleteOffice = (officeId: string): Observable<object> => this.http.delete(`${this.urlFireBase}/offices/${officeId}.json`);
+  deleteEmployee = (employeeId: string): Observable<object> => this.http.delete(`${this.urlFireBase}/employees/${employeeId}.json`);
 
   // Methods that get all the data from Firebase
   getCities = (): Observable<object> => this.http.get(`${this.urlFireBase}/cities.json`);
   getOffices = (): Observable<object> => this.http.get(`${this.urlFireBase}/offices.json`);
   getEmployees = (): Observable<object> => this.http.get(`${this.urlFireBase}/employees.json`);
-
 }

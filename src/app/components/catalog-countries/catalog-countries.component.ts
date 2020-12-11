@@ -49,17 +49,13 @@ export class CatalogCountriesComponent implements OnInit {
       switch (this.dataOperation) {
         case DataOperation.add:
           this.addCity();
-          console.log('operation set to "add"');
           break;
         case DataOperation.edit:
           this.editCity();
-          console.log('operation set to "edit"');
           break;
-        default:
-          console.log('operation set to "read"');
       }
-      this.formCity.reset();
     }
+    this.formCity.reset();
   }
 
   clickedBtnAddCity(): void{
@@ -74,9 +70,11 @@ export class CatalogCountriesComponent implements OnInit {
   }
 
   clickedBtnDeleteCity(index: number): void{
+    if (window.confirm('¿Está seguro de querer borrar esta ciudad?')) {
     this.dataOperation = 3;
     this.deleteCity(index);
     this.listOfCities.splice(index, 1);
+    }
   }
 
   addCity(): void{
